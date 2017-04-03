@@ -16,10 +16,17 @@ class ViewController: UIViewController {
     
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
+        
         if userIsInTheMiddleOfTyping {
+            // Append touched digit to display
             let textCurrentlyInDisplay = display.text!
-            display.text = textCurrentlyInDisplay + digit
+            let proposedText = textCurrentlyInDisplay + digit
+            
+            if Double(proposedText) != nil { // Prevent invalid input
+                display.text = proposedText
+            }
         } else {
+            // Set display to touched digit
             display.text = digit
             userIsInTheMiddleOfTyping = true
         }
@@ -30,9 +37,9 @@ class ViewController: UIViewController {
             return Double(display.text!)! // Assume text label is always a double
         }
         set {
-            display.text = String(newValue) // 'newValue' comes from set
+            display.text = String(newValue)
         }
-    } // A computed property
+    }
     
     private var brain : CalculatorBrain = CalculatorBrain()
 
