@@ -48,6 +48,8 @@ struct CalculatorBrain {
                 }
             case .binaryOperation(let function):
                 if accumulator != nil {
+                    // Perform any pending binary operations before setting a new one
+                    performPendingBinaryOperation()
                     pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator!)
                     accumulator = nil
                 }
@@ -94,6 +96,11 @@ struct CalculatorBrain {
     }
     
     var result: Double? {
-        return accumulator
+        // So entering "6 x 5 x" shows "30" on display rather than 5
+        if pendingBinaryOperation != nil {
+            return pendingBinaryOperation!.firstOperand
+        } else {
+            return accumulator
+        }
     }
 }
