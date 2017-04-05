@@ -54,6 +54,18 @@ class ViewController: UIViewController {
         if let result = brain.result {
             displayValue = result
         }
+        print(brain.description ?? "empty")
     }
+    
+    @IBAction func clear(_ sender: UIButton) {
+        brain.reset()
+        if userIsInTheMiddleOfTyping {
+            userIsInTheMiddleOfTyping = false
+        }
+        displayValue = 0.0
+
+        print(brain.description ?? "empty")
+    }
+    
 }
 
