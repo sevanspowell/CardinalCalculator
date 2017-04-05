@@ -124,30 +124,6 @@ struct CalculatorBrain {
         }
     }
     
-    /*
-    /// Clears accumulator if there is a pending binary operation, otherwise has
-    /// same effect as 'reset()'.
-    ///
-    /// - SeeAlso: `reset()`
-    mutating func clear() {
-        if resultIsPending {
-            accumulator = nil
-        } else {
-            reset()
-        }
-    }
-    
-    /// Clears currently pending binary operation and restores accumulator to
-    /// previous state.
-    mutating func clearPendingBinaryOperation() {
-        if resultIsPending {
-            // Restore accumulator first
-            accumulator = pendingBinaryOperation!.firstOperand
-            pendingBinaryOperation = nil
-        }
-    }
-    */
-    
     /// Resets calculator back to initial state.
     mutating func reset() {
         accumulator = nil
