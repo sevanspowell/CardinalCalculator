@@ -11,7 +11,7 @@ import Foundation
 struct CalculatorBrain {
     
     typealias ValueAndDescriptionTuple = (value: Double, description: String)
-    private var accumulator: ValueAndDescriptionTuple? = nil
+    private var accumulator: ValueAndDescriptionTuple?
     
     private enum Operation {
         case constant(Double)
@@ -20,7 +20,7 @@ struct CalculatorBrain {
         case equals
     }
     
-    private var operations: Dictionary<String,Operation> = [
+    private let operations: Dictionary<String,Operation> = [
         "π"     : Operation.constant(Double.pi),
         "e"     : Operation.constant(M_E),
         
@@ -113,13 +113,44 @@ struct CalculatorBrain {
         }
     }
     
-    /// Returns a description of the sequence of operands and operations that led to the value
-    /// returned by `result` (or the result so far if `resultIsPending`).
+    /// Returns a description of the sequence of operands and operations that led 
+    /// to the value returned by `result` (or the result so far if 
+    /// `resultIsPending`).
     var description: String? {
         if resultIsPending {
             return pendingBinaryOperation!.descriptionFunction(pendingBinaryOperation!.firstOperand.description, accumulator?.description ?? "")
         } else {
             return accumulator?.description
         }
+    }
+    
+    /*
+    /// Clears accumulator if there is a pending binary operation, otherwise has
+    /// same effect as 'reset()'.
+    ///
+    /// - SeeAlso: `reset()`
+    mutating func clear() {
+        if resultIsPending {
+            accumulator = nil
+        } else {
+            reset()
+        }
+    }
+    
+    /// Clears currently pending binary operation and restores accumulator to
+    /// previous state.
+    mutating func clearPendingBinaryOperation() {
+        if resultIsPending {
+            // Restore accumulator first
+            accumulator = pendingBinaryOperation!.firstOperand
+            pendingBinaryOperation = nil
+        }
+    }
+    */
+    
+    /// Resets calculator back to initial state.
+    mutating func reset() {
+        accumulator = nil
+        pendingBinaryOperation = nil
     }
 }
