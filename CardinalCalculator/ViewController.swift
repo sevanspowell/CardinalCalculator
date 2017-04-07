@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var display: UILabel! // Optional because may not be set (e.g. during startup before label is created) - implicity unwrapped optional
+    @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var descriptionDisplay: UILabel!
     
     var userIsInTheMiddleOfTyping = false
     
@@ -41,6 +42,21 @@ class ViewController: UIViewController {
         }
     }
     
+    var descriptionValue: String {
+        get {
+            return descriptionDisplay.text ?? " "
+        }
+        set {
+            var newDescription = newValue
+            
+            if newValue != " " {
+                newDescription += brain.resultIsPending ? "..." : " ="
+            }
+            
+            descriptionDisplay.text = newDescription
+        }
+    }
+    
     private var brain : CalculatorBrain = CalculatorBrain()
 
     @IBAction func performOperation(_ sender: UIButton) {
@@ -53,8 +69,8 @@ class ViewController: UIViewController {
         }
         if let result = brain.result {
             displayValue = result
+            descriptionValue = brain.description ?? " "
         }
-        print(brain.description ?? "empty")
     }
     
     @IBAction func clear(_ sender: UIButton) {
@@ -63,8 +79,7 @@ class ViewController: UIViewController {
             userIsInTheMiddleOfTyping = false
         }
         displayValue = 0.0
-
-        print(brain.description ?? "empty")
+        descriptionValue = " "
     }
     
 }

@@ -25,6 +25,7 @@ struct CalculatorBrain {
         "e"     : Operation.constant(M_E),
         
         "√"     : Operation.unaryOperation(sqrt,    { "√(\($0))" }),
+        "sin"   : Operation.unaryOperation(sin,     { "sin(\($0)" }),
         "cos"   : Operation.unaryOperation(cos,     { "cos(\($0)" }),
         "±"     : Operation.unaryOperation({ -$0 }, { "-(\($0))" }),
         
@@ -32,6 +33,7 @@ struct CalculatorBrain {
         "÷"     : Operation.binaryOperation({ $0 / $1 }, { "\($0) ÷ \($1)" }),
         "+"     : Operation.binaryOperation({ $0 + $1 }, { "\($0) + \($1)" }),
         "−"     : Operation.binaryOperation({ $0 - $1 }, { "\($0) − \($1)" }),
+        "%"     : Operation.binaryOperation({ $0.truncatingRemainder(dividingBy: $1) }, { "\($0) % \($1)" }),
         
         "="     : Operation.equals
     ]
