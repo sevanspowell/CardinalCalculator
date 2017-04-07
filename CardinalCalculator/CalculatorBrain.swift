@@ -98,7 +98,12 @@ struct CalculatorBrain {
     ///
     /// - Parameter operand: new operand.
     mutating func setOperand(_ operand: Double) {
-        accumulator = (operand, "\(operand)")
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = 6
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.minimumIntegerDigits = 1
+        
+        accumulator = (operand, "\(numberFormatter.string(from: operand as NSNumber)!)")
     }
     
     /// Returns calculator's current result or accumulated result if `resultIsPending` is true.

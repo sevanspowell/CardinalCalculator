@@ -38,7 +38,12 @@ class ViewController: UIViewController {
             return Double(display.text!)! // Assume text label is always a double
         }
         set {
-            display.text = String(newValue)
+            let numberFormatter = NumberFormatter()
+            numberFormatter.maximumFractionDigits = 6
+            numberFormatter.minimumFractionDigits = 0
+            numberFormatter.minimumIntegerDigits = 1
+            
+            display.text = numberFormatter.string(from: newValue as NSNumber)
         }
     }
     
