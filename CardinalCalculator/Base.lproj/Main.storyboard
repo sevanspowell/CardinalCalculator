@@ -935,6 +935,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="display" destination="So1-Ff-UNB" id="rdP-ku-9LO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

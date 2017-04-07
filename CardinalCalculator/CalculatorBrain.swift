@@ -33,6 +33,7 @@ struct CalculatorBrain {
         "÷"     : Operation.binaryOperation({ $0 / $1 }, { "\($0) ÷ \($1)" }),
         "+"     : Operation.binaryOperation({ $0 + $1 }, { "\($0) + \($1)" }),
         "−"     : Operation.binaryOperation({ $0 - $1 }, { "\($0) − \($1)" }),
+        "%"     : Operation.binaryOperation({ $0.truncatingRemainder(dividingBy: $1) }, { "\($0) % \($1)" }),
         
         "="     : Operation.equals
     ]
