@@ -82,5 +82,17 @@ class ViewController: UIViewController {
         descriptionValue = " "
     }
     
+    @IBAction func backspace(_ sender: UIButton) {
+        // Only makes sense to backspace a number if user was typing it
+        if userIsInTheMiddleOfTyping {
+            if let displayText = display.text {
+                display.text!.remove(at: displayText.index(before:displayText.endIndex))
+                if display.text!.isEmpty {
+                    display.text = "0"
+                    userIsInTheMiddleOfTyping = false
+                }
+            }
+        }
+    }
 }
 
