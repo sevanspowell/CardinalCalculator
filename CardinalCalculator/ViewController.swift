@@ -83,7 +83,8 @@ class ViewController: UIViewController {
         if userIsInTheMiddleOfTyping {
             userIsInTheMiddleOfTyping = false
         }
-        displayValue = 0.0
+        displayValue = 0
+        brain.setOperand(displayValue)
         descriptionValue = " "
     }
     
@@ -92,8 +93,12 @@ class ViewController: UIViewController {
         if userIsInTheMiddleOfTyping {
             if let displayText = display.text {
                 display.text!.remove(at: displayText.index(before:displayText.endIndex))
+                // Number was fully backspaced
                 if display.text!.isEmpty {
-                    display.text = "0"
+                    displayValue = 0
+                    // Have to explicitly set operand on calculator in this case
+                    brain.setOperand(displayValue)
+                    // Required so that new numbers aren't appended to the 0, but replace it
                     userIsInTheMiddleOfTyping = false
                 }
             }

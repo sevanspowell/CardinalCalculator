@@ -10,6 +10,17 @@ import Foundation
 
 struct CalculatorBrain {
     
+    static private func factorial(_ x: Double) -> Double {
+        var factorial: Int = 1
+        let numIterations: Int = Int(x) + 1
+        
+        for i in 1..<numIterations {
+            factorial *= i
+        }
+        
+        return Double(factorial)
+    }
+    
     typealias ValueAndDescriptionTuple = (value: Double, description: String)
     private var accumulator: ValueAndDescriptionTuple?
     
@@ -25,8 +36,17 @@ struct CalculatorBrain {
         "e"     : Operation.constant(M_E),
         
         "√"     : Operation.unaryOperation(sqrt,    { "√(\($0))" }),
-        "sin"   : Operation.unaryOperation(sin,     { "sin(\($0)" }),
-        "cos"   : Operation.unaryOperation(cos,     { "cos(\($0)" }),
+        "sin"   : Operation.unaryOperation(sin,     { "sin(\($0))" }),
+        "cos"   : Operation.unaryOperation(cos,     { "cos(\($0))" }),
+        "tan"   : Operation.unaryOperation(tan,     { "tan(\($0))" }),
+        "sinh"  : Operation.unaryOperation(sinh,    { "sinh(\($0))" }),
+        "cosh"  : Operation.unaryOperation(cosh,    { "cosh(\($0))" }),
+        "tanh"  : Operation.unaryOperation(tanh,    { "tanh(\($0))" }),
+        "log10" : Operation.unaryOperation(log10,   { "log10(\($0))" }),
+        "ln"    : Operation.unaryOperation(log,     { "ln(\($0))" }),
+        "n!"    : Operation.unaryOperation(CalculatorBrain.factorial, { "(\($0))!" }),
+        "eⁿ"    : Operation.unaryOperation({ pow(M_E, $0) },          { "(e^(\($0)))" }),
+        "10ⁿ"   : Operation.unaryOperation({ pow(10, $0) },           { "(10^(\($0)))" }),
         "±"     : Operation.unaryOperation({ -$0 }, { "-(\($0))" }),
         
         "×"     : Operation.binaryOperation({ $0 * $1 }, { "\($0) × \($1)" }),
