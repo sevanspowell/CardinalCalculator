@@ -99,5 +99,76 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    @IBOutlet weak var row0: UIStackView!
+    @IBOutlet var row0CompactButtons: [UIButton]!
+    @IBOutlet weak var row1: UIStackView!
+    @IBOutlet var row1CompactButtons: [UIButton]!
+    @IBOutlet weak var row2: UIStackView!
+    @IBOutlet var row2CompactButtons: [UIButton]!
+    @IBOutlet weak var row3: UIStackView!
+    @IBOutlet var row3CompactButtons: [UIButton]!
+    @IBOutlet weak var row4: UIStackView!
+    @IBOutlet var row4CompactButtons: [UIButton]!
+    
+    func setupCompactUI() {
+        for button in row0CompactButtons {
+            button.isHidden = false
+            row0.insertArrangedSubview(button, at: 0)
+        }
+        for button in row1CompactButtons {
+            button.isHidden = false
+            row1.insertArrangedSubview(button, at: 0)
+        }
+        for button in row2CompactButtons {
+            button.isHidden = false
+            row2.insertArrangedSubview(button, at: 0)
+        }
+        for button in row3CompactButtons {
+            button.isHidden = false
+            row3.insertArrangedSubview(button, at: 0)
+        }
+        for button in row4CompactButtons {
+            button.isHidden = false
+            row4.insertArrangedSubview(button, at: 0)
+        }
+    }
+    
+    func setupRegularUI() {
+        for button in row0CompactButtons {
+            button.isHidden = true
+            row0.removeArrangedSubview(button)
+        }
+        for button in row1CompactButtons {
+            button.isHidden = true
+            row1.removeArrangedSubview(button)
+        }
+        for button in row2CompactButtons {
+            button.isHidden = true
+            row2.removeArrangedSubview(button)
+        }
+        for button in row3CompactButtons {
+            button.isHidden = true
+            row3.removeArrangedSubview(button)
+        }
+        for button in row4CompactButtons {
+            button.isHidden = true
+            row4.removeArrangedSubview(button)
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if previousTraitCollection?.verticalSizeClass != traitCollection.verticalSizeClass { // vertical size class has changed
+            switch traitCollection.verticalSizeClass {
+            case .compact:
+                setupCompactUI()
+            case .unspecified: fallthrough
+            case .regular:
+                setupRegularUI()
+            }
+        }
+    }
 }
 
